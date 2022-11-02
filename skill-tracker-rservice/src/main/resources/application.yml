@@ -1,0 +1,40 @@
+server:
+  port: 5002
+
+spring:
+  data:
+    mongodb:
+      host: host.docker.internal
+      port: 27017
+      database: fse
+  
+  kafka:
+    bootstrap-servers:
+      - kafka:9092
+    consumer:
+      group-id: group_id
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+      
+topic:
+  profile:
+    consumer: PROFILE
+  user:
+    consumer: USER
+  skill:
+    consumer: SKILL  
+      
+  main:
+    allow-bean-definition-overriding: true
+
+jwt:
+  secret: skilltracker

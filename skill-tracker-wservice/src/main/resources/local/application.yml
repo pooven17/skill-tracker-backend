@@ -1,0 +1,47 @@
+server:
+  port: 5003
+  
+spring:  datasource:    url: jdbc:mysql://localhost:3306/fse?allowPublicKeyRetrieval=true&useSSL=false
+    userName: root
+    password: pass@word1
+    
+  jpa:    properties:      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        
+    hibernate:      ddl-auto: update
+    
+  kafka:    producer:      bootstrap-servers: 127.0.0.1:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer      value-serializer: org.apache.kafka.common.serialization.StringSerializer      group-id: skill_tracker
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+      
+  main:
+    allow-bean-definition-overriding: true
+      
+topic:
+  profile:
+    producer: PROFILE
+  user:
+    producer: USER
+  skill:
+    producer: SKILL
+    
+auto:
+  create:
+    topics:
+      enable: true
+      
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        
+jwt:
+  secret: skilltracker
+  
+profile:
+  update:
+    days: 0

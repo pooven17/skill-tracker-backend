@@ -1,0 +1,128 @@
+services:
+  mysql:
+    image: "mysql:8.0"
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: fse
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root@123
+      MYSQL_ROOT_HOST: '%'
+    networks:
+      - skilltrackerNet
+
+  mongo:
+    image: "mongo:4.4.3"
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      - skilltrackerNet
+
+  zookeeper:
+    container_name:
+      zookeeper_merge
+    image:
+      wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - skilltrackerNet
+  kafka:
+    container_name:
+      kafka_merge
+    image:
+      wurstmeister/kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://:9092,PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - skilltrackerNet
+
+  skill-tracker-api-gateway:
+    container_name: skill-tracker-api-gateway
+    hostname: skill-tracker-api-gateway
+    image: rpoovendhan/api-gateway
+    build: ./skill-tracker-api-gateway
+    restart: always
+    ports:
+      - 4000:4000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - skilltrackerNet
+
+  skill-tracker-auth:
+    container_name: skill-tracker-auth
+    hostname: skill-tracker-auth
+    image: rpoovendhan/auth
+    build: ./skill-tracker-auth
+    restart: always
+    ports:
+      - 5001:5001
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - skilltrackerNet
+
+  skill-tracker-wservice:
+    container_name: skill-tracker-wservice
+    hostname: skill-tracker-wservice
+    image: rpoovendhan/wservice
+    build: ./skill-tracker-wservice
+    restart: always
+    ports:
+      - 5003:5003
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - skill-tracker-api-gateway
+      - skill-tracker-auth
+      - mysql
+      - kafka
+    networks:
+      - skilltrackerNet
+
+  skill-tracker-rservice:
+    container_name: skill-tracker-rservice
+    hostname: skill-tracker-rservice
+    image: rpoovendhan/rservice
+    build: ./skill-tracker-rservice
+    restart: always
+    ports:
+      - 5002:5002
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - skill-tracker-api-gateway
+      - skill-tracker-auth
+      - mongo
+      - kafka
+    networks:
+      - skilltrackerNet
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
+  mysql:
+    driver: local
+
+networks:
+  skilltrackerNet:
+    driver: bridge

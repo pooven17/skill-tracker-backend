@@ -1,0 +1,50 @@
+server:
+  port: 5003
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://host.docker.internal:3306/fse?createDatabaseIfNotExist=true
+    userName: root
+    password: root@123
+  kafka:
+    producer:
+      bootstrap-servers: kafka:9092
+      group-id: group_id
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+      
+  main:
+    allow-bean-definition-overriding: true
+    
+topic:
+  profile:
+    consumer: PROFILE
+  user:
+    consumer: USER
+  skill:
+    producer: SKILL
+    
+auto:
+  create:
+    topics:
+      enable: true
+
+jwt:
+  secret: skilltracker
+  
+profile:
+  update:
+    days: 0

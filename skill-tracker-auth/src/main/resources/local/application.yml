@@ -1,0 +1,19 @@
+server:
+  port: 5001
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: fse
+  main:
+    allow-circular-references: true
+
+jwt:
+  secret: skilltracker
+  expiry:
+    mins: 60
+  get:
+    token:
+      uri: /skill-tracker/signin

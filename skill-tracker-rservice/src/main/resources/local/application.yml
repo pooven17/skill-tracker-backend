@@ -1,0 +1,45 @@
+server:
+  port: 5002
+  
+spring:
+  data:
+    mongodb:
+      database: fse
+      port: 27017
+      host: localhost
+  kafka:
+    consumer:
+      bootstrap-servers: 127.0.0.1:9092
+      group-id: skill_tracker
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+      
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+      
+topic:
+  profile:
+    consumer: PROFILE
+  user:
+    consumer: USER
+  skill:
+    consumer: SKILL
+      
+  main:
+    allow-bean-definition-overriding: true
+    
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+    
+jwt:
+  secret: skilltracker
