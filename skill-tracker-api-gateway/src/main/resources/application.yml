@@ -15,81 +15,81 @@ spring:
     gateway:
       routes:
         - id: login
-          uri: http://skill-tracker-auth:5001/skill-tracker/signin
+          uri: http://localhost:5001/skill-tracker/signin
           predicates:
             - Path=/skill-tracker/signin
 
-        - id: FindUserByName
-          uri: http://skill-tracker-rservice:5002/skill-tracker/api/v1/userinfo/**
+        - id: FindUserID
+          uri: http://localhost:5002/skill-tracker/api/v1/userinfo/**
           predicates:
             - Path=/skill-tracker/api/v1/userinfo/**
             
         - id: FindUserID
-          uri: http://skill-tracker-rservice:5002/skill-tracker/api/v1/skills
+          uri: http://localhost:5002/skill-tracker/api/v1/skills
           predicates:
             - Path=/skill-tracker/api/v1/skills
 
         - id: GetProfileByCriteria
-          uri: http://skill-tracker-rservice:5002/skill-tracker/api/v1/admin/**
+          uri: http://localhost:5002/skill-tracker/api/v1/admin/**
           predicates:
             - Path=/skill-tracker/api/v1/admin/**
 
         - id: GetProfileById
-          uri: http://skill-tracker-rservice:5002/skill-tracker/api/v1/engineer/get-profile/**
+          uri: http://localhost:5002/skill-tracker/api/v1/engineer/get-profile/**
           predicates:
             - Path=/skill-tracker/api/v1/engineer/get-profile/**
                         
         - id: CreateUser
-          uri: http://skill-tracker-wservice:5003/skill-tracker/api/v1/user/createUser
+          uri: http://localhost:5003/skill-tracker/api/v1/user/createUser
           predicates:
             - Path=/skill-tracker/api/v1/user/createUser
 
         - id: UpdateUser
-          uri: http://skill-tracker-wservice:5003/skill-tracker/api/v1/user/updateUser/**
+          uri: http://localhost:5003/skill-tracker/api/v1/user/updateUser/**
           predicates:
             - Path=/skill-tracker/api/v1/user/updateUser/**
 
         - id: AddProfile
-          uri: http://skill-tracker-wservice:5003/skill-tracker/api/v1/engineer/add-profile
+          uri: http://localhost:5003/skill-tracker/api/v1/engineer/add-profile
           predicates:
             - Path=/skill-tracker/api/v1/engineer/add-profile
 
         - id: UpdateProfile
-          uri: http://skill-tracker-wservice:5003/skill-tracker/api/v1/engineer/update-profile/**
+          uri: http://localhost:5003/skill-tracker/api/v1/engineer/update-profile/**
           predicates:
             - Path=/skill-tracker/api/v1/engineer/update-profile/**
             
         - id: deleteProfile
-          uri: http://skill-tracker-wservice:5003/skill-tracker/api/v1/engineer/delete-profile/**
+          uri: http://localhost:5003/skill-tracker/api/v1/engineer/delete-profile/**
           predicates:
             - Path=/skill-tracker/api/v1/engineer/delete-profile/**
 
         - id: auth-actuator
-          uri: http://skill-tracker-auth:5001/actuator/**
+          uri: http://localhost:5001/actuator/**
           predicates:
             - Path=/auth/actuator
 
         - id: auth-swagger-ui
-          uri: http://skill-tracker-auth:5001/swagger-ui/**
+          uri: http://localhost:5001/swagger-ui/**
           predicates:
             - Path=/auth/swagger-ui
             
         - id: r-actuator
-          uri: http://skill-tracker-rservice:5002/actuator/**
+          uri: http://localhost:5002/actuator/**
           predicates:
             - Path=/r/actuator
 
         - id: r-swagger-ui
-          uri: http://skill-tracker-rservice:5002/swagger-ui/**
+          uri: http://localhost:5002/swagger-ui/**
           predicates:
             - Path=/r/swagger-ui
             
         - id: w-actuator
-          uri: http://skill-tracker-wservice:5003/actuator/**
+          uri: http://localhost:5003/actuator/**
           predicates:
             - Path=/w/actuator
 
         - id: w-swagger-ui
-          uri: http://skill-tracker-wservice:5003/swagger-ui/**
+          uri: http://localhost:5003/swagger-ui/**
           predicates:
             - Path=/w/swagger-ui
