@@ -14,7 +14,7 @@ spring:
   kafka:
     producer:
       bootstrap-servers: kafka:9092
-      group-id: group_id
+      group-id: skill_tracker
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       properties:
@@ -31,9 +31,9 @@ spring:
     
 topic:
   profile:
-    consumer: PROFILE
+    producer: PROFILE
   user:
-    consumer: USER
+    producer: USER
   skill:
     producer: SKILL
     

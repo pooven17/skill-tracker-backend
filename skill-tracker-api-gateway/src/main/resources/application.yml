@@ -33,7 +33,7 @@ spring:
           uri: http://skill-tracker-rservice:5002/skill-tracker/api/v1/admin/**
           predicates:
             - Path=/skill-tracker/api/v1/admin/**
-            
+
         - id: GetProfileById
           uri: http://skill-tracker-rservice:5002/skill-tracker/api/v1/engineer/get-profile/**
           predicates:
