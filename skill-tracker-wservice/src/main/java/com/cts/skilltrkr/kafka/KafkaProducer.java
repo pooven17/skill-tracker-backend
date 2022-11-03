@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class KafkaProducer {
 
-	@Value("${topic.profile.producer}")
-	private String profileTopicName;
+	//@Value("${topic.profile.producer}")
+	private String profileTopicName= "PROFILE";
 
-	@Value("${topic.user.producer}")
-	private String userTopicName;
+	//@Value("${topic.user.producer}")
+	private String userTopicName= "USER";
 
-	@Value("${topic.skill.producer}")
-	private String skillTopicName;
+	//@Value("${topic.skill.producer}")
+	private String skillTopicName = "SKILL";
 
 	private final KafkaTemplate<String, String> kafkaTemplate;
 
