@@ -56,7 +56,7 @@ services:
   skill-tracker-api-gateway:
     container_name: skill-tracker-api-gateway
     hostname: skill-tracker-api-gateway
-    image: rpoovendhan/api-gateway
+    image: skill-tracker-api-gateway
     build: ./skill-tracker-api-gateway
     restart: always
     ports:
@@ -69,7 +69,7 @@ services:
   skill-tracker-auth:
     container_name: skill-tracker-auth
     hostname: skill-tracker-auth
-    image: rpoovendhan/auth
+    image: skill-tracker-auth
     build: ./skill-tracker-auth
     restart: always
     ports:
@@ -82,7 +82,7 @@ services:
   skill-tracker-wservice:
     container_name: skill-tracker-wservice
     hostname: skill-tracker-wservice
-    image: rpoovendhan/wservice
+    image: skill-tracker-wservice
     build: ./skill-tracker-wservice
     restart: always
     ports:
@@ -100,7 +100,7 @@ services:
   skill-tracker-rservice:
     container_name: skill-tracker-rservice
     hostname: skill-tracker-rservice
-    image: rpoovendhan/rservice
+    image: skill-tracker-rservice
     build: ./skill-tracker-rservice
     restart: always
     ports:
