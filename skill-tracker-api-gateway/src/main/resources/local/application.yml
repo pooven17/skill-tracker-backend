@@ -19,7 +19,7 @@ spring:
           predicates:
             - Path=/skill-tracker/signin
 
-        - id: FindUserID
+        - id: FindUserByName
           uri: http://localhost:5002/skill-tracker/api/v1/userinfo/**
           predicates:
             - Path=/skill-tracker/api/v1/userinfo/**
